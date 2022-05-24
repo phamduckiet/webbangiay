@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $listcategory = category::all();
+        return view('admin.page.categories.index', compact('listcategory'));
     }
 
     /**
@@ -59,9 +60,15 @@ class CategoryController extends Controller
      * @param  \App\Models\category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit($id)
     {
-        //
+        $listcategory = category::find($id);
+        if($listcategory){
+            return response()->json(["data" => $listcategory]);
+        }else {
+            toastr()->error("listcategory does not exits");
+            return $this->index();
+        }
     }
 
     /**
@@ -71,9 +78,12 @@ class CategoryController extends Controller
      * @param  \App\Models\category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, category $category)
+    public function update(categoryRequest $request)
     {
-        //
+        $data = $request->all();
+        $category = category::find($request->id);
+        $category->update($data);
+        return response()->json(['status' => true]);
     }
 
     /**

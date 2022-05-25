@@ -32,11 +32,11 @@
                     <td class="text-center">{{ $value->name_category }}</td>
                     <td class="text-center"><img style="width:100px; height:100px" src="{{$value->image_category}}"></td>
                     <td class="text-center text-nowrap">
-                        <button data-delete={{$value->id}} type="button" class="btn btn-danger round waves-effect callDelete" type="button" data-bs-toggle="modal" data-bs-target="#addNewCard">Xóa</button>
+                        <button data-delete={{$value->id}} type="button" class="btn btn-danger round waves-effect callDelete" type="button" data-bs-toggle="modal" data-bs-target="#addNewCard">Delete</button>
                         <button type="button" data-edit="{{ $value->id }}"
                             class="btn btn-success editcategory" data-bs-toggle="modal"
-                            data-bs-target="#chinhsuasinhvien">
-                            Chỉnh sữa
+                            data-bs-target="#edit-category">
+                            Edit
                         </button>
                     </td>
                 </tr>
@@ -48,30 +48,30 @@
       </div>
     </div>
 </div>
-    {{-- <div class="modal fade" id="addNewCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="addNewCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel2">Thông báo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel2">Notification</h5>
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <input type="hidden" id="nhavien_id">
-                            <label class="col-form-label" for="recipient-name">Bạn có muốn xóa nhân viên này không ?</label>
+                            <input type="hidden" id="category_id">
+                            <label class="col-form-label" for="recipient-name">Are you sure to delete this category ?</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Không</button>
-                    <button class="btn btn-warning" id="xoanhanvien" type="button">Có</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">No</button>
+                    <button class="btn btn-warning" id="delete_category" type="button">Yes</button>
                 </div>
             </div>
         </div>
-    </div> --}}
-    <div class="modal fade" id="chinhsuasinhvien">
+    </div>
+    <div class="modal fade" id="edit-category">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user" data-select2-id="84">
             <div class="modal-content" data-select2-id="83">
                 <div class="modal-header bg-transparent">
@@ -107,14 +107,12 @@
                                                                 <label>Image Category</label>
                                                                 <div class="input-group">
                                                                   <input id="image_category" class="form-control" required>
-                                                                  <a id="lfm" data-input="image_category" data-preview="holderhinhanh" class="lfm btn btn-light">
+                                                                  <a id="lfm" data-input="image_category" data-preview="image_category1" class="lfm btn btn-light">
                                                                   Choose
                                                                   </a>
-                                                                  <img id="image_category1" style="width:200px; height:200px" id="holderhinhanh" class="card-img-top">
+                                                                  <img id="image_category1" style="width:200px; height:200px" id="image_category1" class="card-img-top">
                                                               </div>
-
                                                               </div>
-
                                                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                                                 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
                                                                 <script>
@@ -204,15 +202,15 @@
                 var id = $(this).data('delete');
                 console.log(id);
                 row = $(this);
-                $("#nhavien_id").val(id);
+                $("#category_id").val(id);
                 });
-                $("#xoanhanvien").click(function(){
-                    var id = $("#nhavien_id").val();
+                $("#delete_category").click(function(){
+                    var id = $("#category_id").val();
                     $.ajax({
-                        url: '/admin/agent/xoanhanvien/' + id,
+                        url: '/admin/category/delete_category/' + id,
                         type: 'get',
                         success: function($data) {
-                            toastr.success('Bạn đã xóa thành công nhân viên !');
+                            toastr.warning('You have successfully delete! !');
                             $(row).closest('tr').remove();
                             $('#addNewCard').modal('hide');
                         }

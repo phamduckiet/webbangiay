@@ -25,5 +25,7 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('/list-category', [\App\Http\Controllers\CategoryController::class, 'index'])->name('Category.list');
     Route::get('/category/edit/{id}', [\App\Http\Controllers\CategoryController::class, 'edit']);
     Route::post('/category/update/{id}', [\App\Http\Controllers\CategoryController::class, 'update']);
+    Route::get('/category/delete_category/{id}', [\App\Http\Controllers\CategoryController::class, 'delete']);
+
 });
 

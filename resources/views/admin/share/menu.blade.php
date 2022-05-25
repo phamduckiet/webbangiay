@@ -18,10 +18,10 @@
               </ul>
             </li>
             <li class="sidebar-list">
-              <label class="badge badge-danger"></label><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>Combo Cắt Tóc</span></a>
+              <label class="badge badge-danger"></label><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>Product</span></a>
               <ul class="sidebar-submenu">
-                <li><a href="">Tạo Combo</a></li>
-                <li><a href="">Danh Sách Combo</a></li>
+                <li><a href="">Create Product</a></li>
+                <li><a href="">List Product</a></li>
               </ul>
             </li>
             <br>

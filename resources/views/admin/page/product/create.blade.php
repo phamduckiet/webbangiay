@@ -3,7 +3,7 @@
 <div class="page-title">
     <div class="row">
       <div class="col-6">
-        <h3>Create Category</h3>
+        <h3>Create Product</h3>
       </div>
       <div class="col-6">
       </div>
@@ -11,46 +11,71 @@
 </div>
 @endsection
 @section('content')
-    <div class="col-sm-12">
+<div class="container-fluid">
+    <form method="post" action="{{Route('product.post')}}">
+        @csrf
+    <div class="row">
+      <div class="col-sm-12">
         <div class="card">
-          <div class="card-header">
-            <h5>Zero Configuration</h5>
-            <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>. </span>
-            <span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
-          </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <div id="basic-1_wrapper" class="dataTables_wrapper no-footer">
-                <table class="display dataTable no-footer" id="basic-1" role="grid" aria-describedby="basic-1_info">
-                  <thead>
-                    <tr role="row">
-                      <<th class="text-center" scope="col">Stt</th>
-                      <th class="text-center" scope="col">Name Category</th>
-                      <th class="text-center" scope="col">Image Category</th>
-                      <th class="text-center" scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($listcategory as $key => $value)
-                    <tr class="table table-bordered">
-                        <th class="text-center" scope="row">{{ $key + 1 }}</th>
-                        <td class="text-center">{{ $value->name_category }}</td>
-                        <td class="text-center"><img style="width:100px; height:100px" src="{{$value->image_category}}"></td>
-                        <td class="text-center text-nowrap">
-                            <button data-delete={{$value->id}} type="button" class="btn btn-danger round waves-effect callDelete" type="button" data-bs-toggle="modal" data-bs-target="#addNewCard">Xóa</button>
-                            <button type="button" data-edit="{{ $value->id }}"
-                                class="btn btn-success ChinhSuaNhanVien" data-bs-toggle="modal"
-                                data-bs-target="#chinhsuasinhvien">
-                                Chỉnh sữa
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-                  </tbody>
-                </table>
+            <div class="form theme-form">
+              <div class="row">
+                <div class="col-3">
+                  <div class="mb-3">
+                    <label>Name Product</label>
+                    <input class="form-control" name="name_product" type="text" data-bs-original-title="" title="">
+                  </div>
+                </div>
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <select class="form-select" name="category_id">
+                            <option selected="" disabled="" value="">Choose</option>
+                            @foreach ($category as $value )
+                            <option value="{{$value->id}}">{{$value->name_category}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="mb-2">
+                      <label>Price Product</label>
+                      <input class="form-control" name="price" type="number" min="1000" data-bs-original-title="" title="">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="mb-3">
+                      <label>Qty Product</label>
+                      <input class="form-control" name="qty" type="number" min="1" data-bs-original-title="" title="">
+                    </div>
+                  </div>
+                <div class="col-3">
+                    <label>Image Product</label>
+                    <div class="input-group">
+                        <input id="image" name="image_product" class="form-control">
+                        <a data-input="image" data-preview="holder-icon" class="lfm btn btn-light">
+                            Choose
+                        </a>
+                    </div>
+                    <img id="holder-icon" class="img-thumbnail" style="width:333px; height:300px">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+                <script>
+                    $('.lfm').filemanager('image');
+                </script>
+                </div>
+              </div>
+            </div>
+            <div class="row text-center">
+                <div class="card-body">
+                  <button class="btn btn-success" type="submit" data-bs-original-title="" title="">Create Product</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+</form>
+  </div>
 @endsection

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Admin\category\categoryRequest;
+use App\Http\Requests\Admin\product\productRequest;
 use App\Models\category;
 use App\Models\product;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listcategory = category::all();
-        return view('admin.page.categories.index', compact('listcategory'));
+        $listproduct = product::join('categories', 'category_id', 'categories.id')->select('products.*', 'categories.name_category as namecate')->get();
+        $category = category::all();
+        return view('admin.page.product.index', compact('listproduct','category'));
     }
 
     /**
@@ -27,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.page.categories.create');
+        $category = category::all();
+        return view('admin.page.product.create', compact('category'));
     }
 
     /**
@@ -36,21 +38,21 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(categoryRequest $request)
+    public function store(productRequest $request)
     {
         $data = $request->all();
-        category::create($data);
-        toastr()->success("Created category successfully!");
+        product::create($data);
+        toastr()->success("Created product successfully!");
         return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(category $category)
+    public function show(product $product)
     {
         //
     }
@@ -58,16 +60,16 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $listcategory = category::find($id);
-        if($listcategory){
-            return response()->json(["data" => $listcategory]);
+        $listproduct = product::find($id);
+        if($listproduct){
+            return response()->json(["data" => $listproduct]);
         }else {
-            toastr()->error("listcategory does not exits");
+            toastr()->error("listproduct does not exits");
             return $this->index();
         }
     }
@@ -76,30 +78,31 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(categoryRequest $request)
+    public function update(productRequest $request)
     {
         $data = $request->all();
-        $category = category::find($request->id);
-        $category->update($data);
+        $product = product::find($request->id);
+        $product->update($data);
         return response()->json(['status' => true]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
+    public function destroy(product $product)
+    {
+        //
+    }
     public function delete($id)
     {
-        $category = category::find($id);
-        $product = product::where('category_id', $id)->get();
-        if($category){
-            $category->delete();
-            return response()->json(['status' => true]);
+        $product = product::find($id);
+        if($product){
             $product->delete();
             return response()->json(['status' => true]);
         } else {

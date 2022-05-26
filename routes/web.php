@@ -26,6 +26,16 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('/category/edit/{id}', [\App\Http\Controllers\CategoryController::class, 'edit']);
     Route::post('/category/update/{id}', [\App\Http\Controllers\CategoryController::class, 'update']);
     Route::get('/category/delete_category/{id}', [\App\Http\Controllers\CategoryController::class, 'delete']);
+    Route::get('/create-product', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.Create');
+    Route::post('/create-product', [\App\Http\Controllers\ProductController::class, 'store'])->name('product.post');
+    Route::get('/list-product', [\App\Http\Controllers\ProductController::class, 'index'])->name('product.list');
+    Route::get('/product/edit/{id}', [\App\Http\Controllers\ProductController::class, 'edit']);
+    Route::post('/product/update/{id}', [\App\Http\Controllers\ProductController::class, 'update']);
+    Route::get('/product/delete_product/{id}', [\App\Http\Controllers\ProductController::class, 'delete']);
+
+
+
+
 
 });
 

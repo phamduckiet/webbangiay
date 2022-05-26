@@ -32,11 +32,11 @@
                     <td class="text-center">{{ $value->name_category }}</td>
                     <td class="text-center"><img style="width:100px; height:100px" src="{{$value->image_category}}"></td>
                     <td class="text-center text-nowrap">
-                        <button data-delete={{$value->id}} type="button" class="btn btn-danger round waves-effect callDelete" type="button" data-bs-toggle="modal" data-bs-target="#addNewCard">Delete</button>
+                        <button data-delete={{$value->id}} type="button" class="btn btn-danger round waves-effect callDelete fa fa-trash-o" type="button" data-bs-toggle="modal" data-bs-target="#addNewCard"></button>
                         <button type="button" data-edit="{{ $value->id }}"
-                            class="btn btn-success editcategory" data-bs-toggle="modal"
+                            class="btn btn-success editcategory fa fa-gear" data-bs-toggle="modal"
                             data-bs-target="#edit-category">
-                            Edit
+
                         </button>
                     </td>
                 </tr>
@@ -60,6 +60,7 @@
                     <form>
                         <div class="mb-3">
                             <input type="hidden" id="category_id">
+                            <label class="col-form-label fa fa-exclamation-triangle" style="color: red" for="recipient-name">  All products in this category will be deleted !</label>
                             <label class="col-form-label" for="recipient-name">Are you sure to delete this category ?</label>
                         </div>
                     </form>

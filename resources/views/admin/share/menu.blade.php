@@ -20,8 +20,8 @@
             <li class="sidebar-list">
               <label class="badge badge-danger"></label><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>Product</span></a>
               <ul class="sidebar-submenu">
-                <li><a href="">Create Product</a></li>
-                <li><a href="">List Product</a></li>
+                <li><a href="{{ Route('product.Create')}}">Create Product</a></li>
+                <li><a href="{{ Route('product.list')}}">List Product</a></li>
               </ul>
             </li>
             <br>

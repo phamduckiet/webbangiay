@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.share.master');
-});
 // Route::get('/', function () {
-//     return view('admin.page.product.create');
+//     return view('client.page.shopCate');
 // });
-Route::group(['prefix' => '/admin'], function(){
+// Route::get('/', function () {
+//     return view('admin.register');
+// });
+
+Route::get('/admin/login', [\App\Http\Controllers\AdminController::class, 'viewlogin']);
+Route::post('/admin/login', [\App\Http\Controllers\AdminController::class, 'postlogin'])->name('login.post');
+Route::get('/admin/logout', [\App\Http\Controllers\AdminController::class, 'logout']);
+
+Route::group(['prefix' => '/admin' ,'middleware' => 'checkAdmin'], function(){
     Route::get('/create-category', [\App\Http\Controllers\CategoryController::class, 'create'])->name('Category.Create');
     Route::post('/create-category', [\App\Http\Controllers\CategoryController::class, 'store'])->name('Category.post');
     Route::get('/list-category', [\App\Http\Controllers\CategoryController::class, 'index'])->name('Category.list');
@@ -32,10 +37,16 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('/product/edit/{id}', [\App\Http\Controllers\ProductController::class, 'edit']);
     Route::post('/product/update/{id}', [\App\Http\Controllers\ProductController::class, 'update']);
     Route::get('/product/delete_product/{id}', [\App\Http\Controllers\ProductController::class, 'delete']);
+    Route::get('/register', [\App\Http\Controllers\AdminController::class, 'view']);
+    Route::post('/register', [\App\Http\Controllers\AdminController::class, 'post']);
+});
 
-
-
+Route::get('/client', [\App\Http\Controllers\ClientController::class, 'indexclient']);
+Route::get('/{id}', [\App\Http\Controllers\ClientController::class, 'shopCate']);
+Route::post('/client/register', [\App\Http\Controllers\ClientController::class, 'register']);
+Route::post('/client/login', [\App\Http\Controllers\ClientController::class, 'Login']);
+Route::get('/client/logout', [\App\Http\Controllers\ClientController::class, 'logout']);
+Route::group(['prefix' => '/' ,'middleware' => 'checkUser'], function(){
 
 
 });
-

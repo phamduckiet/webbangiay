@@ -27,7 +27,7 @@
             <br>
             <br>
             <li class="sidebar-list text-center">
-                <label class="badge badge-danger"></label><a href="/admin/login"><i data-feather="log-out"></i><span style="color: rgb(248, 0, 54)">Logout</span></a>
+                <label class="badge badge-danger"></label><a href="/admin/logout"><i data-feather="log-out"></i><span style="color: rgb(248, 0, 54)">Logout</span></a>
               </li>
           </ul>
         </div>

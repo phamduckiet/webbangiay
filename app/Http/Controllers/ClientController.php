@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Client\Loginrequest as ClientLoginrequest;
+use App\Http\Requests\Client\xacnhanRequest;
 use App\Models\category;
 use App\Models\Client;
 use App\Models\product;
 use App\Models\User;
+use App\Models\xacnhan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -84,9 +86,23 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function xacnhan(xacnhanRequest $request)
     {
-        //
+        $data = $request->all();
+        xacnhan::create($data);
+        $product_id =$request->product_id;
+        $soluong =$request->soluong;
+        $product = product::find($product_id);
+        if($product)
+        {
+            $product->id == $product_id;
+            $product->qty -= $soluong;
+            $product->save();
+        }else{
+            toastr()->error("Bạn không được sữa hệ thống");
+        }
+        return response()->json(['status' => true]);
+
     }
 
     /**

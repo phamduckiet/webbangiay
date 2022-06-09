@@ -46,7 +46,7 @@ Route::get('/{id}', [\App\Http\Controllers\ClientController::class, 'shopCate'])
 Route::post('/client/register', [\App\Http\Controllers\ClientController::class, 'register']);
 Route::post('/client/login', [\App\Http\Controllers\ClientController::class, 'Login']);
 Route::get('/client/logout', [\App\Http\Controllers\ClientController::class, 'logout']);
-Route::group(['prefix' => '/' ,'middleware' => 'checkUser'], function(){
-
+Route::group(['prefix' => '' ,'middleware' => 'checkUser'], function(){
+    Route::post('/client/xacnhan', [\App\Http\Controllers\ClientController::class, 'xacnhan']);
 
 });
